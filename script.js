@@ -1,37 +1,64 @@
-// Handle the leave form submission
-document.getElementById("leaveForm").addEventListener("submit", function (event) {
-    event.preventDefault();
+// Array to store leave requests
+let leaveRequests = [];
 
-    // Get form values
-    const name = document.getElementById("employeeName").value.trim();
-    const leaveType = document.getElementById("leaveType").value;
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
-    const reason = document.getElementById("reason").value.trim();
+// Function to handle leave request submission
+document.getElementById("leaveRequestForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  
+  // Get form values
+  const empName = document.getElementById("empName").value;
+  const leaveType = document.getElementById("leaveType").value;
+  const leaveDays = document.getElementById("leaveDays").value;
 
-    // Validate inputs
-    if (!name || !leaveType || !startDate || !endDate || !reason) {
-        alert("Please fill out all fields.");
-        return;
-    }
+  // Create a leave request object
+  const leaveRequest = {
+    empName: empName,
+    leaveType: leaveType,
+    leaveDays: leaveDays,
+    status: "Pending"
+  };
 
-    // Create a new row in the table
-    const tableBody = document.getElementById("leaveTableBody");
-    const row = document.createElement("tr");
+  // Add the leave request to the array
+  leaveRequests.push(leaveRequest);
 
-    row.innerHTML = `
-        <td>${name}</td>
-        <td>${leaveType}</td>
-        <td>${startDate}</td>
-        <td>${endDate}</td>
-        <td>${reason}</td>
-    `;
+  // Clear the form
+  document.getElementById("leaveRequestForm").reset();
 
-    tableBody.appendChild(row);
-
-    // Clear form fields
-    document.getElementById("leaveForm").reset();
-
-    // Show success message
-    alert("Leave application submitted successfully!");
+  // Update the table to show the new leave request
+  updateLeaveRequestsTable();
 });
+
+// Function to update the leave requests table
+function updateLeaveRequestsTable() {
+  const tableBody = document.querySelector("#leaveRequestsTable tbody");
+  tableBody.innerHTML = ""; // Clear the table body
+  
+  leaveRequests.forEach((request, index) => {
+    const row = document.createElement("tr");
+    
+    row.innerHTML = `
+      <td>${request.empName}</td>
+      <td>${request.leaveType}</td>
+      <td>${request.leaveDays}</td>
+      <td>${request.status}</td>
+      <td>
+        <button class="approve" onclick="approveRequest(${index})">Approve</button>
+        <button class="reject" onclick="rejectRequest(${index})">Reject</button>
+      </td>
+    `;
+    
+    tableBody.appendChild(row);
+  });
+}
+
+// Function to approve a leave request
+function approveRequest(index) {
+  leaveRequests[index].status = "Approved";
+  updateLeaveRequestsTable();
+}
+
+// Function to reject a leave request
+function rejectRequest(index) {
+  leaveRequests[index].status = "Rejected";
+  updateLeaveRequestsTable();
+}

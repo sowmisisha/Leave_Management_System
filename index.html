@@ -1,65 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Leave Management</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Leave Management System</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="container">
-        <header>
-            <h1>Employee Leave Management System</h1>
-        </header>
-        <main>
-            <section class="leave-form">
-                <h2>Apply for Leave</h2>
-                <form id="leaveForm">
-                    <label for="employeeName">Employee Name:</label>
-                    <input type="text" id="employeeName" placeholder="Enter your name" required>
 
-                    <label for="leaveType">Leave Type:</label>
-                    <select id="leaveType" required>
-                        <option value="Casual Leave">Casual Leave</option>
-                        <option value="Sick Leave">Sick Leave</option>
-                        <option value="Paid Leave">Paid Leave</option>
-                    </select>
-
-                    <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate" required>
-
-                    <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate" required>
-
-                    <label for="reason">Reason:</label>
-                    <textarea id="reason" placeholder="Enter reason for leave" required></textarea>
-
-                    <button type="submit">Submit</button>
-                </form>
-            </section>
-
-            <section class="leave-list">
-                <h2>Applied Leaves</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaveTableBody">
-                        <!-- Dynamic leave records will be added here -->
-                    </tbody>
-                </table>
-            </section>
-        </main>
+  <div class="container">
+    <h2>Employee Leave Management System</h2>
+    
+    <!-- Leave Request Form -->
+    <div id="leave-form">
+      <h3>Request Leave</h3>
+      <form id="leaveRequestForm">
+        <label for="empName">Employee Name:</label>
+        <input type="text" id="empName" required>
+        <label for="leaveType">Leave Type:</label>
+        <select id="leaveType" required>
+          <option value="Sick Leave">Sick Leave</option>
+          <option value="Vacation Leave">Vacation Leave</option>
+          <option value="Casual Leave">Casual Leave</option>
+        </select>
+        <label for="leaveDays">Number of Days:</label>
+        <input type="number" id="leaveDays" required min="1">
+        <button type="submit">Submit Leave Request</button>
+      </form>
     </div>
-    <script src="script.js"></script>
-</body>
+    
+    <!-- Admin Section -->
+    <div id="admin-section">
+      <h3>Admin - Approve/Reject Leave Requests</h3>
+      <table id="leaveRequestsTable">
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Leave Type</th>
+            <th>Leave Days</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Leave requests will be added here dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
+  <script src="script.js"></script>
+</body>
 </html>
